@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.addressList.mapper.AddresslistMapper">
+    <resultMap id="BaseResultMap" type="demo.addressList.dto.Addresslist">
+        <result column="id" property="id" jdbcType="DECIMAL" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+</mapper>

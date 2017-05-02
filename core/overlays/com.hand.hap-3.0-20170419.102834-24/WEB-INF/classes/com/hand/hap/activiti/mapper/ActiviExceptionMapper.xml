@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.hap.activiti.exception.mapper.ActiviExceptionMapper">
+    <resultMap id="BaseResultMap" type="com.hand.hap.activiti.exception.dto.ActiviException">
+        <result column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="PROC_ID" property="procId"/>
+        <result column="MESSAGE" property="message"/>
+        <result column="duedate" property="duedate"/>
+    </resultMap>
+
+    <select id="selectAllException" resultMap="BaseResultMap"
+            parameterType="com.hand.hap.activiti.exception.dto.ActiviException">
+        select x.PROC_ID , x.MESSAGE ,x.DUEDATE, p.name_ procDefName from( select PROC_ID , MESSAGE ,DUEDATE from
+        act_exception UNION (select j.PROCESS_INSTANCE_ID_,b.BYTES_,j.DUEDATE_ from
+        act_ru_deadletter_job j,act_ge_bytearray b where j.EXCEPTION_STACK_ID_=b.ID_)) x ,act_re_procdef
+        p,act_hi_procinst o where x.PROC_ID=o.id_ and o.proc_def_id_=p.id_
+        <where>
+            <if test="procId !=null ">
+                and x.PROC_ID = #{procId}
+            </if>
+            <if test="duedate !=null ">
+                and x.DUEDATE >= #{duedate}
+            </if>
+        </where>
+        ORDER BY x.PROC_ID, x.DUEDATE DESC
+    </select>
+</mapper>

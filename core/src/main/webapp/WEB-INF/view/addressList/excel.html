@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    //FX获取文件路径方法
+    function getPath(obj)
+    {
+        var url="";
+        if(obj)
+        {
+
+            if (window.navigator.userAgent.indexOf("MSIE")>=1)
+            {
+                obj.select();
+                obj.blur();
+                url= document.selection.createRange().text;
+            }
+
+            else if(window.navigator.userAgent.indexOf("Firefox")>=1)
+            {
+                if(obj.files)
+                {
+                    url= obj.files.item(0).getAsDataURL();
+                }
+                url = obj.value;
+            }
+            url = obj.value;
+        }
+        alert(url);
+    }
+</script>
+<h1>JS获取文件域完整路径的方法，兼容不同浏览器</h1>
+<div id="text" style="color:#f00;"></div>
+<input type="file" id="file" onchange="getPath(this)" />
